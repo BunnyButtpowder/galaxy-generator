@@ -5,8 +5,22 @@ import GUI from 'lil-gui'
 /**
  * Base
  */
+// Responsive utility function
+const isMobile = () => window.innerWidth <= 768
+
 // Debug
-const gui = new GUI({ width: 400 })
+const gui = new GUI()
+
+// Set responsive GUI width
+const setResponsiveGUI = () => {
+    if (isMobile()) {
+        gui.domElement.style.width = 'auto'
+    } else {
+        gui.domElement.style.width = '400px'
+    }
+}
+
+setResponsiveGUI()
 
 // Canvas
 const canvas = document.querySelector('canvas.webgl')
@@ -127,6 +141,10 @@ window.addEventListener('resize', () => {
     // Update renderer
     renderer.setSize(sizes.width, sizes.height)
     renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2))
+
+    // Update responsive settings
+    setResponsiveGUI()
+    setResponsiveCameraPosition()
 })
 
 /**
@@ -134,9 +152,17 @@ window.addEventListener('resize', () => {
  */
 // Base camera
 const camera = new THREE.PerspectiveCamera(75, sizes.width / sizes.height, 0.1, 100)
-camera.position.x = 9
-camera.position.y = 3
-camera.position.z = 6
+
+// Set responsive camera position
+const setResponsiveCameraPosition = () => {
+    if (isMobile()) {
+        camera.position.set(9, 7, 11)
+    } else {
+        camera.position.set(6, 2, 3)
+    }
+}
+
+setResponsiveCameraPosition()
 scene.add(camera)
 
 // Controls
