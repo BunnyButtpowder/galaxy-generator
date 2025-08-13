@@ -64,22 +64,20 @@ const generateGalaxy = () => {
     const insideColor = new THREE.Color(parameters.insideColor)
     const outsideColor = new THREE.Color(parameters.outsideColor)
 
-
-
     for (let i = 0; i < parameters.count; i++) {
         const i3 = i * 3
 
         // positions
-        const radius = Math.random() * parameters.radius
+        const radius = Math.pow(Math.random(), 3) * parameters.radius
         const spinAngle = radius * parameters.spin
         const branchAngle = (i % parameters.branches) / parameters.branches * Math.PI * 2
 
-        const randomX = Math.pow(Math.random(), parameters.randomnessPower) * (Math.random() < 0.5 ? 1 : -1)
-        const randomY = Math.pow(Math.random(), parameters.randomnessPower) * (Math.random() < 0.5 ? 1 : -1)
-        const randomZ = Math.pow(Math.random(), parameters.randomnessPower) * (Math.random() < 0.5 ? 1 : -1)
+        const randomX = Math.pow(Math.random(), parameters.randomnessPower) * (Math.random() < 0.5 ? 1 : -1) * parameters.randomness * (radius + 1)
+        const randomY = Math.pow(Math.random(), parameters.randomnessPower) * (Math.random() < 0.5 ? 1 : -1) * parameters.randomness * (radius + 1)
+        const randomZ = Math.pow(Math.random(), parameters.randomnessPower) * (Math.random() < 0.5 ? 1 : -1) * parameters.randomness * (radius + 1)
 
         positions[i3] = Math.cos(branchAngle + spinAngle) * radius + randomX
-        positions[i3 + 1] = randomY
+        positions[i3 + 1] = 0.005 / randomY
         positions[i3 + 2] = Math.sin(branchAngle + spinAngle) * radius + randomZ
     
         // Color
